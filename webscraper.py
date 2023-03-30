@@ -11,8 +11,6 @@ class NytimesArticles:
     def get_content(self, url):
         request = requests.get(url)
         soup = BeautifulSoup(request.text, 'html.parser')
-        with open('outputfile.txt', 'w', encoding="utf-8") as f:
-            f.write(soup.prettify())
         containers = soup.find_all("script", {"type": "application/ld+json"})
         article_list = []
         for container in containers:
@@ -46,8 +44,18 @@ class NytimesArticles:
         aricle_urls = self.extract_url(link_indexs, content_string)
         return aricle_urls
 
+
+url = "https://www.independent.co.uk/tech"
+request = requests.get(url)
+soup = BeautifulSoup(request.text, 'html.parser')
+containers = soup.find_all('<a class="title" href="/tech/')
+print(containers)
+
+
 nytimes_tech_articles = NytimesArticles("https://www.nytimes.com/section/technology")
 nytimes_science_articles = NytimesArticles("https://www.nytimes.com/section/science")
 nytimes_food_articles = NytimesArticles("https://www.nytimes.com/section/food")
 
-print(nytimes_science_articles.scrape_page())
+
+
+# print(nytimes_science_articles.scrape_page())
