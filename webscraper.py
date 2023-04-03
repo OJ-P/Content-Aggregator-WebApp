@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import io
+import re
 
 
 class NytimesArticles:
@@ -48,13 +48,21 @@ class NytimesArticles:
 url = "https://www.independent.co.uk/tech"
 request = requests.get(url)
 soup = BeautifulSoup(request.text, 'html.parser')
-containers = soup.find_all('<a class="title" href="/tech/')
-print(containers)
+containers = soup.find_all("a", {"class": "title"})
+
+content_list = []
+pattern = re.compile(r'href="\/tech\/.*?\.html">')
+for content in containers:
+    if pattern == True:
+        content_list.append(content)
+
+            
+print(content_list)
 
 
-nytimes_tech_articles = NytimesArticles("https://www.nytimes.com/section/technology")
-nytimes_science_articles = NytimesArticles("https://www.nytimes.com/section/science")
-nytimes_food_articles = NytimesArticles("https://www.nytimes.com/section/food")
+#nytimes_tech_articles = NytimesArticles("https://www.nytimes.com/section/technology")
+#nytimes_science_articles = NytimesArticles("https://www.nytimes.com/section/science")
+#nytimes_food_articles = NytimesArticles("https://www.nytimes.com/section/food")
 
 
 
