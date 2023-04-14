@@ -44,26 +44,38 @@ class NytimesArticles:
         aricle_urls = self.extract_url(link_indexs, content_string)
         return aricle_urls
 
+class IndependentArticles:
 
-url = "https://www.independent.co.uk/tech"
-request = requests.get(url)
-soup = BeautifulSoup(request.text, 'html.parser')
-containers = soup.find_all("a", {"class": "title"})
+    def __init__(self, page_to_scrape, re_pattern):
+        self.page_to_scrape = page_to_scrape
+        self.re_pattern = re_pattern
 
-content_list = []
-pattern = re.compile(r'href="\/tech\/.*?\.html">')
-for content in containers:
-    if pattern == True:
-        content_list.append(content)
+    def get_content(self, url):
+        request = requests.get(url)
+        soup = BeautifulSoup(request.text, 'html.parser')
+        containers = soup.find_all("a", {"class": "title"})
+        content_list = re.findall(self.re_pattern, str(containers))
+        return content_list
 
-            
-print(content_list)
+    def extract_url(self, content_list):
+        url_list = []
+        for link in content_list:
+            link = link[6:-2]
+            link = "https://www.independent.co.uk" + link
+            url_list.append(link)
+        return url_list
+
+    def scrape_page(self):
+        content_list = self.get_content(self.page_to_scrape)
+        article_urls = self.extract_url(content_list)
+        return article_urls
 
 
 #nytimes_tech_articles = NytimesArticles("https://www.nytimes.com/section/technology")
 #nytimes_science_articles = NytimesArticles("https://www.nytimes.com/section/science")
 #nytimes_food_articles = NytimesArticles("https://www.nytimes.com/section/food")
+#independent_tech_articles = IndependentArticles("https://www.independent.co.uk/tech", re.compile(r'href="\/tech\/.*?\.html">'))
+#independent_science_articles = IndependentArticles("https://www.independent.co.uk/news/science", re.compile(r'href="\/news\/science\/.*?\.html">'))
+#independent_food_articles = IndependentArticles("https://www.independent.co.uk/life-style/food-and-drink", re.compile(r'href="\/life-style\/food-and-drink\/.*?\.html">'))
 
-
-
-# print(nytimes_science_articles.scrape_page())
+#print(independent_food_articles.scrape_page())
