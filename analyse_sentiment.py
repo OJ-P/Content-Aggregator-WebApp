@@ -22,6 +22,9 @@ def extract_sentiment(news_story):
     polarity_average = calc_average(polarity)
     subjectivity_average = calc_average(subjectivity)
 
+    final_polarity = categorise_sentiment(polarity_average, "polarity")
+    final_subjectivity = categorise_sentiment(subjectivity_average, "subjectivity")
+    
 def calc_average(list):
     return sum(list) / len(list)
 
@@ -56,4 +59,5 @@ def categorise_sentiment(average_sentiment, type):
         elif average_sentiment > 0.1:
             sentiment_category = "Fairly Objective"
     return sentiment_category
+
 

@@ -71,11 +71,11 @@ class IndependentArticles:
         return article_urls
 
 
-#nytimes_tech_articles = NytimesArticles("https://www.nytimes.com/section/technology")
-#nytimes_science_articles = NytimesArticles("https://www.nytimes.com/section/science")
-#nytimes_food_articles = NytimesArticles("https://www.nytimes.com/section/food")
-#independent_tech_articles = IndependentArticles("https://www.independent.co.uk/tech", re.compile(r'href="\/tech\/.*?\.html">'))
-#independent_science_articles = IndependentArticles("https://www.independent.co.uk/news/science", re.compile(r'href="\/news\/science\/.*?\.html">'))
-#independent_food_articles = IndependentArticles("https://www.independent.co.uk/life-style/food-and-drink", re.compile(r'href="\/life-style\/food-and-drink\/.*?\.html">'))
+nytimes_tech_articles = NytimesArticles("https://www.nytimes.com/section/technology")
+nytimes_science_articles = NytimesArticles("https://www.nytimes.com/section/science")
+nytimes_food_articles = NytimesArticles("https://www.nytimes.com/section/food")
+independent_tech_articles = IndependentArticles("https://www.independent.co.uk/tech", re.compile(r'href="\/tech\/.*?\.html">'))
+independent_science_articles = IndependentArticles("https://www.independent.co.uk/news/science", re.compile(r'href="\/news\/science\/.*?\.html">'))
+independent_food_articles = IndependentArticles("https://www.independent.co.uk/life-style/food-and-drink", re.compile(r'href="\/life-style\/food-and-drink\/.*?\.html">'))
 
 #print(independent_food_articles.scrape_page())
